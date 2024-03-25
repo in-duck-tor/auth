@@ -1,0 +1,71 @@
+﻿@page
+@model InDuckTor.Auth.Pages.Account.Login.Index
+
+<div class="login-page mt-5">
+    <partial name="_ValidationSummary" />
+
+    <div class="row justify-content-md-center">
+
+        @if (Model.View.EnableLocalLogin)
+        {
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>
+                            Выполнить вход в Bank InDuckTor через InDuckTor.Auth
+                        </h2>
+                    </div>
+
+                    <div class="card-body">
+                        <form asp-page="/Account/Login/Index">
+                            <input type="hidden" asp-for="Input.ReturnUrl" />
+
+                            <div class="form-group mb-4">
+                                <input class="form-control" placeholder="Логин" asp-for="Input.Login" autofocus>
+                            </div>
+                            <div class="form-group mb-4">
+                                <input type="password" class="form-control" placeholder="Пароль" asp-for="Input.Password" autocomplete="off">
+                            </div>
+
+                            <button class="btn btn-primary" name="Input.Button" value="login">Вход</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        }
+
+        @if (Model.View.VisibleExternalProviders.Any())
+        {
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-header">
+                        <h2>External Account</h2>
+                    </div>
+                    <div class="card-body">
+                        <ul class="list-inline">
+                            @foreach (var provider in Model.View.VisibleExternalProviders)
+                            {
+                                <li class="list-inline-item">
+                                    <a class="btn btn-secondary"
+                                       asp-page="/ExternalLogin/Challenge"
+                                       asp-route-scheme="@provider.AuthenticationScheme"
+                                       asp-route-returnUrl="@Model.Input.ReturnUrl">
+                                        @provider.DisplayName
+                                    </a>
+                                </li>
+                            }
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        }
+
+        @if (!Model.View.EnableLocalLogin && !Model.View.VisibleExternalProviders.Any())
+        {
+            <div class="alert alert-warning">
+                <strong>Invalid login request</strong>
+                There are no login schemes configured for this request.
+            </div>
+        }
+    </div>
+</div>
