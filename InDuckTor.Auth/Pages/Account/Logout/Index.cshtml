@@ -1,0 +1,17 @@
+﻿@page
+@model InDuckTor.Auth.Pages.Account.Logout.Index
+
+<div class="logout-page">
+    <div class="lead">
+        <h1>Выход</h1>
+        <p>Вы уверены, что хотите выйти из своей учетной записи?</p>
+    </div>
+
+    <form asp-page="/Account/Logout/Index">
+        <input type="hidden" name="logoutId" value="@Model.LogoutId" />
+
+        <div class="form-group">
+            <button class="btn btn-primary">Да</button>
+        </div>
+    </form>
+</div>

@@ -14,6 +14,7 @@ namespace InDuckTor.Auth.Pages.Account.Login
         private readonly IAuthenticationSchemeProvider _schemeProvider;
         private readonly IEventService _events;
         private readonly ICredentialsService _credentialsService;
+        private readonly IUserHttpClient _userHttpClient;
 
         public ViewModel View { get; set; } = default!;
 
@@ -23,12 +24,14 @@ namespace InDuckTor.Auth.Pages.Account.Login
         public Index(
             IIdentityServerInteractionService interaction,
             IAuthenticationSchemeProvider schemeProvider,
-            IEventService events, ICredentialsService credentialsService)
+            IEventService events, ICredentialsService credentialsService,
+            IUserHttpClient userHttpClient)
         {
             _interaction = interaction;
             _schemeProvider = schemeProvider;
             _events = events;
             _credentialsService = credentialsService;
+            _userHttpClient = userHttpClient;
         }
 
         public async Task<IActionResult> OnGet(string? returnUrl)
@@ -90,9 +93,7 @@ namespace InDuckTor.Auth.Pages.Account.Login
                         throw new ArgumentException("invalid return URL");
                     }
                 }
-
-                // Check is Active
-
+  
                 await _events.RaiseAsync(new UserLoginFailureEvent(Input.Login, LoginOptions.InvalidCredentialsErrorMessage, clientId: context?.Client.ClientId));
                 ModelState.AddModelError(string.Empty, LoginOptions.InvalidCredentialsErrorMessage);
             }
