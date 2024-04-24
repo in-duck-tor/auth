@@ -1,4 +1,5 @@
-﻿using IdentityServer4.Models;
+﻿using IdentityServer4;
+using IdentityServer4.Models;
 
 namespace InDuckTor.Auth
 {
@@ -28,6 +29,23 @@ namespace InDuckTor.Auth
                     PostLogoutRedirectUris = {"http://localhost:4200/home"},
                     AllowedCorsOrigins = {"http://localhost:4200"},
                     AllowAccessTokensViaBrowser = true,
+                },
+                 new Client
+                {
+                    ClientId = "inductor_mobile_client",
+                    ClientName = "Android app client",
+                    RequireClientSecret = true,
+                    ClientSecrets =
+                    {
+                        new Secret("inducktor".Sha256())
+                    },
+                    RequirePkce = false,
+                    RequireConsent = false,
+                    AllowedGrantTypes = GrantTypes.Code,
+                    RedirectUris =
+                        { "com.ithirteeng.secondpatternsclientproject.app:/oauth2redirect/inductor" },
+                    AllowedScopes = { "openid", "profile", "email" },
+                    AllowOfflineAccess = true
                 }
             };
         }
