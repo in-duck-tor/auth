@@ -35,6 +35,7 @@ namespace InDuckTor.Auth
                 {
                     ClientId = "inductor_mobile_client",
                     ClientName = "Android app client",
+                    RequireClientSecret = false,
                     RequirePkce = false,
                     RequireConsent = false,
                     AllowedGrantTypes = GrantTypes.Code,
