@@ -29,6 +29,7 @@ namespace InDuckTor.Auth
                     PostLogoutRedirectUris = {"http://localhost:4200/home"},
                     AllowedCorsOrigins = {"http://localhost:4200"},
                     AllowAccessTokensViaBrowser = true,
+                    AccessTokenLifetime = 360000
                 },
                  new Client
                 {
@@ -45,7 +46,8 @@ namespace InDuckTor.Auth
                     RedirectUris =
                         { "com.ithirteeng.secondpatternsclientproject.app:/oauth2redirect/inductor" },
                     AllowedScopes = { "openid", "profile", "email" },
-                    AllowOfflineAccess = true
+                    AllowOfflineAccess = true,
+                    AccessTokenLifetime = 360000
                 }
             };
         }
