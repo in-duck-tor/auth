@@ -44,7 +44,7 @@ namespace InDuckTor.Auth
                     RequireConsent = false,
                     AllowedGrantTypes = GrantTypes.Code,
                     RedirectUris =
-                        { "com.ithirteeng.secondpatternsclientproject.app:/oauth2redirect/inductor" },
+                        { "com.ithirteeng.secondpatternsclientproject.app://yo" },
                     AllowedScopes = { "openid", "profile", "email" },
                     AllowOfflineAccess = true,
                     AccessTokenLifetime = 360000
